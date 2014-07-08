@@ -7,8 +7,9 @@ public class JpaFoodOrderDao extends GenericJpaDao implements FoodOrderDao {
 
 	@Override
 	public void save(FoodOrder foodOrder) {
+		entityManager.getTransaction().begin();
 		entityManager.persist(foodOrder);
-		entityManager.flush();
+		entityManager.getTransaction().commit();
 	}
 
 }

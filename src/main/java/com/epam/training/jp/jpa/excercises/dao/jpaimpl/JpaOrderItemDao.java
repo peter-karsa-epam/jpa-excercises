@@ -7,8 +7,9 @@ public class JpaOrderItemDao extends GenericJpaDao implements OrderItemDao {
 
 	@Override
 	public void save(OrderItem orderItem) {
+		entityManager.getTransaction().begin();
 		entityManager.persist(orderItem);
-		entityManager.flush();
+		entityManager.getTransaction().commit();
 	}
 
 }

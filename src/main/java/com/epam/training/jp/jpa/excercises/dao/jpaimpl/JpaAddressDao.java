@@ -7,8 +7,9 @@ public class JpaAddressDao extends GenericJpaDao implements AddressDao {
 
 	@Override
 	public void save(Address address) {
+		entityManager.getTransaction().begin();
 		entityManager.persist(address);
-		entityManager.flush();
+		entityManager.getTransaction().commit();
 	}
 
 }
