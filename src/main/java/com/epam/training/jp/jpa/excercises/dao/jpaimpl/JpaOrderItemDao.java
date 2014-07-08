@@ -7,10 +7,8 @@ public class JpaOrderItemDao extends GenericJpaDao implements OrderItemDao {
 
 	@Override
 	public void save(OrderItem orderItem) {
-		//TODO: implement
-		throw new UnsupportedOperationException();
-
-
+		entityManager.persist(orderItem);
+		entityManager.flush();
 	}
 
 }
