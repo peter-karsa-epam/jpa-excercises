@@ -32,6 +32,14 @@ public class FoodOrder {
 		this.address = address;
 		this.customer = customer;
 		this.pending = pending;
+	}	
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public List<OrderItem> getCreateOrderItems() {

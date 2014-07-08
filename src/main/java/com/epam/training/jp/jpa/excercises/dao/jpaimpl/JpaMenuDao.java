@@ -1,8 +1,7 @@
 package com.epam.training.jp.jpa.excercises.dao.jpaimpl;
 
+import java.util.Date;
 import java.util.List;
-
-import javax.persistence.TypedQuery;
 
 import com.epam.training.jp.jpa.excercises.dao.MenuDao;
 import com.epam.training.jp.jpa.excercises.domain.Food;
@@ -12,9 +11,15 @@ public class JpaMenuDao extends GenericJpaDao implements MenuDao {
 
 	@Override
 	public List<Menu> getActualMenus() {
-		TypedQuery<Menu> query = entityManager.createQuery(
-				"SELECT m FROM Menu m", Menu.class);
-		List<Menu> menus = query.getResultList();
+		List<Menu> menus = entityManager
+				.createQuery(
+						"SELECT m FROM Menu m WHERE :now >= m.fromDate AND :now <= m.toDate",
+						Menu.class).setParameter("now", new Date())
+				.getResultList();
+		for (Menu menu : menus) {
+			menu.getFoods().size();
+		}
+
 		return menus;
 	}
 

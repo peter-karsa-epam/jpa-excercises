@@ -7,13 +7,17 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 public class Menu {
 	@Id
 	@GeneratedValue
 	private int id;
+	@Temporal(TemporalType.DATE)
 	private Date fromDate;
+	@Temporal(TemporalType.DATE)
 	private Date toDate;
 	@OneToMany
 	private List<Food> foods;

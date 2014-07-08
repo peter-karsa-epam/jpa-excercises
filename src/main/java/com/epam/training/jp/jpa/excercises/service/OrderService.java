@@ -23,12 +23,12 @@ public class OrderService {
 	private final FoodOrderDao foodOrderDao;
 	private final AddressDao addressDao;
 	private final OrderItemDao orderItemDao;
-	
+
 	@Resource
 	private PlatformTransactionManager txManager;
-	
-	
-	public OrderService(MenuDao menuDao, FoodOrderDao foodOrderDao, AddressDao addressDao, OrderItemDao orderItemDao) {
+
+	public OrderService(MenuDao menuDao, FoodOrderDao foodOrderDao,
+			AddressDao addressDao, OrderItemDao orderItemDao) {
 		super();
 		this.menuDao = menuDao;
 		this.foodOrderDao = foodOrderDao;
@@ -38,30 +38,28 @@ public class OrderService {
 
 	@Transactional(readOnly = true)
 	public List<Menu> getActualMenus() {
-		//TODO: implement
-		throw new UnsupportedOperationException();
-
+		return menuDao.getActualMenus();
 	}
 
 	public Food findFoodById(int foodId) {
-		//TODO: implement
-		throw new UnsupportedOperationException();
-
+		return menuDao.findFoodById(foodId);
 	}
-	
+
 	@Transactional
-	public int submitOrder(ShoppingCart shopingCart){
-		//TODO: implement, save all the related data
-		throw new UnsupportedOperationException();
+	public int submitOrder(ShoppingCart shopingCart) {
+		// TODO: implement, save all the related data
+		// throw new UnsupportedOperationException();
+		FoodOrder foodOrder = shopingCart.build();
 
-		
+		addressDao.save(foodOrder.getAddress());
+
+		for (OrderItem orderItem : foodOrder.getOrderItems()) {
+			orderItemDao.save(orderItem);
+		}
+		foodOrderDao.save(foodOrder);
+
+		return foodOrder.getId();
+
 	}
-	
 
-	
-	
-	
-
-	
-	
 }
